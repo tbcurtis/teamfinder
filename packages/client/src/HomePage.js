@@ -1,4 +1,5 @@
-import { Button, Container, Heading, Box, Stack } from "@chakra-ui/react";
+import { Button, Container, Heading, Box, Stack, Link } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import Request from "./Request";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -57,9 +58,19 @@ function HomePage() {
               }}
             >
               Create
-            </Button>{" "}
+            </Button>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Link
+              href="http://localhost:3000/completedRequests"
+              color="red"
+              isExternal
+            >
+              Click here to view full teams.
+            </Link>
           </div>
         </Box>
+
         <Stack spacing={8}>{RequestList(openRequests)}</Stack>
       </Container>
     </>

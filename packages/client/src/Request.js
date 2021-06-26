@@ -1,7 +1,6 @@
 import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
 function Request({ data, setIsOpen, setCurrentId }) {
-  //console.log(data);
   return (
     <Box
       p={5}

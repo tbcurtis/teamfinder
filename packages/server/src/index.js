@@ -48,6 +48,21 @@ router.get("/getAllOpenRequests", (req, res) => {
     .catch((e) => console.error(e.stack));
 });
 
+router.get("/getAllFullRequests", (req, res) => {
+  pool
+    .query(
+      `SELECT * FROM request where (player1 is not null and player2 is not null and player3 is not null);`
+    )
+    .then((results) => {
+      if (results.rows != null) {
+        console.table(results.rows), res.send(results.rows);
+      } else {
+        res.send({});
+      }
+    })
+    .catch((e) => console.error(e.stack));
+});
+
 router.get("/getRequest/:id", (req, res) => {
   //console.log(req);
   pool
