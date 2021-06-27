@@ -45,10 +45,14 @@ function JoinModal({ isOpen, setIsOpen, currentId, retrieveOpenRequests }) {
             mr={3}
             onClick={() => {
               axios
-                .post("http://localhost:3001/api/acceptRequest", {
-                  id: currentId,
-                  playername: usernameInput,
-                })
+                // .post("http://localhost:3001/api/acceptRequest", {
+                .post(
+                  "https://api-teamfinder.herokuapp.com/api/acceptRequest",
+                  {
+                    id: currentId,
+                    playername: usernameInput,
+                  }
+                )
                 .then((res) => {
                   setIsOpen(false);
                   setUsernameInput("");

@@ -45,9 +45,13 @@ function CreateModal({ isOpen, setIsOpen, currentId, retrieveOpenRequests }) {
             mr={3}
             onClick={() => {
               axios
-                .post("http://localhost:3001/api/createRequest", {
-                  creator: usernameInput,
-                })
+                //.post("http://localhost:3001/api/createRequest", {
+                .post(
+                  "https://api-teamfinder.herokuapp.com/api/createRequest",
+                  {
+                    creator: usernameInput,
+                  }
+                )
                 .then((res) => {
                   setIsOpen(false);
                   setUsernameInput("");

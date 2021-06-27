@@ -6,9 +6,12 @@ import { Container, Heading, Box, Stack, Link } from "@chakra-ui/react";
 function FullTeamsPage() {
   let [fullRequests, setFullRequests] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3001/api/getAllFullRequests").then((res) => {
-      setFullRequests(res.data);
-    });
+    //axios.get("http://localhost:3001/api/getAllFullRequests").then((res) => {
+    axios
+      .get("https://api-teamfinder.herokuapp.com/getAllFullRequests")
+      .then((res) => {
+        setFullRequests(res.data);
+      });
   }, []);
   let RequestList = (requests) => {
     return requests.map((request) => (
@@ -22,7 +25,12 @@ function FullTeamsPage() {
           TeamFinder Full Teams
         </Heading>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Link href="http://localhost:3000/" color="red" isExternal>
+          {/* <Link href="http://localhost:3000/" color="red" isExternal> */}
+          <Link
+            href="https://web-client-teamfinder.herokuapp.com/"
+            color="red"
+            isExternal
+          >
             Click here to Create/Join a team
           </Link>
         </div>
