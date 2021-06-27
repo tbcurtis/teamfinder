@@ -4,12 +4,13 @@ import cors from "cors";
 
 const app = express();
 const router = express.Router();
-const port = 3001;
+const port = process.env.PORT || 80;
 
 app.use(json()); //use middleware
 app.use(cors());
 
 //run db migration
+client.connect();
 client
   .query(
     `create table IF NOT EXISTS request (
@@ -124,6 +125,7 @@ router.post("/acceptRequest", (req, res) => {
 
 app.use("/api", router);
 
-app.listen(port, () => {
-  console.log(`listening on http://localhost:${port}`);
+app.listen(port), () => {
+  console.log(`listening on ${port}`);
 });
+client.end();
