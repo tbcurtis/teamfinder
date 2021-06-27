@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import pool from "./database";
+import client from "./database";
 import cors from "cors";
 
 const app = express();
@@ -10,7 +10,7 @@ app.use(json()); //use middleware
 app.use(cors());
 
 //run db migration
-pool
+client
   .query(
     `create table IF NOT EXISTS request (
     id serial PRIMARY KEY ,
@@ -26,7 +26,7 @@ pool
   .catch((e) => console.error(e.stack));
 
 router.get("/", (req, res) => {
-  pool
+  client
     .query("SELECT NOW() as now")
     .then((results) => {
       console.table(results.rows), res.send(results.rows[0]);
@@ -34,7 +34,7 @@ router.get("/", (req, res) => {
     .catch((e) => console.log(e.stack));
 });
 router.get("/getAllOpenRequests", (req, res) => {
-  pool
+  client
     .query(
       `SELECT * FROM request where( player1 is null or player2 is null or player3 is null);`
     )
@@ -49,7 +49,7 @@ router.get("/getAllOpenRequests", (req, res) => {
 });
 
 router.get("/getAllFullRequests", (req, res) => {
-  pool
+  client
     .query(
       `SELECT * FROM request where (player1 is not null and player2 is not null and player3 is not null);`
     )
@@ -65,7 +65,7 @@ router.get("/getAllFullRequests", (req, res) => {
 
 router.get("/getRequest/:id", (req, res) => {
   //console.log(req);
-  pool
+  client
     .query(`SELECT * FROM request where(id = $1)`, [req.params.id])
     .then((results) => {
       if (results.rows != null) {
@@ -80,7 +80,7 @@ router.get("/getRequest/:id", (req, res) => {
 router.post("/createRequest", (req, res) => {
   let { creator } = req.body;
   //console.log(req);
-  pool
+  client
     .query(`INSERT INTO request(creator,createdOn) values($1,NOW())`, [creator])
     .then((results) => {
       res.status(201).send({ message: "Insertion successful" });
@@ -92,7 +92,7 @@ router.post("/createRequest", (req, res) => {
 router.post("/acceptRequest", (req, res) => {
   let { id, playername } = req.body;
   let player = "";
-  pool
+  client
     .query(
       `SELECT * FROM request where(id = $1 and (player1 is null or player2 is null or player3 is null))`,
       [id]
@@ -108,7 +108,7 @@ router.post("/acceptRequest", (req, res) => {
         } else if (results1.rows[0].player3 === null) {
           player = "player3";
         }
-        pool
+        client
           .query(`UPDATE request set ${player} = $1::text where id = $2`, [
             playername,
             id,
