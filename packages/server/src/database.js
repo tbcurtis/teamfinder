@@ -1,6 +1,6 @@
-import { Client } from "pg";
+import { Pool } from "pg";
 
-const client = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
@@ -12,4 +12,4 @@ const client = new Client({
 //   database: "teamfinder",
 //   max: 20,
 // });
-export default client;
+export default pool;
