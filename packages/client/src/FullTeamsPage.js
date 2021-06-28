@@ -8,7 +8,7 @@ function FullTeamsPage() {
   useEffect(() => {
     //axios.get("http://localhost:3001/api/getAllFullRequests").then((res) => {
     axios
-      .get("https://api-teamfinder.herokuapp.com/getAllFullRequests")
+      .get("https://api-teamfinder.herokuapp.com/api/getAllFullRequests")
       .then((res) => {
         setFullRequests(res.data);
       });
