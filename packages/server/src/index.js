@@ -5,7 +5,6 @@ import cors from "cors";
 const app = express();
 const router = express.Router();
 const port = process.env.PORT || 80;
-//const port = 3001;
 
 app.use(json()); //use middleware
 app.use(cors());
