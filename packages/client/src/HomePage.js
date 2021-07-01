@@ -12,7 +12,6 @@ function HomePage() {
   let [currentId, setCurrentId] = useState(0);
   let [openRequests, setOpenRequests] = useState([]);
   useEffect(() => {
-    //axios.get("http://localhost:3001/api/getAllOpenRequests").then((res) => {
     axios
       .get("https://api-teamfinder.herokuapp.com/api/getAllOpenRequests")
       .then((res) => {
@@ -20,7 +19,6 @@ function HomePage() {
       });
   }, []);
   let retrieveOpenRequests = () => {
-    //axios.get("http://localhost:3001/api/getAllOpenRequests").then((res) => {
     axios
       .get("https://api-teamfinder.herokuapp.com/api/getAllOpenRequests")
       .then((res) => {
@@ -68,7 +66,6 @@ function HomePage() {
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Link
-              //href="http://localhost:3000/completedRequests"
               href="https://web-client-teamfinder.herokuapp.com/completedRequests"
               color="red"
               isExternal
